@@ -28,6 +28,7 @@
     --muted: #5a7891;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
@@ -54,7 +55,7 @@
   .wrap { max-width: 440px; margin: 0 auto; }
 
   header {
-    padding: 64px 0 28px;
+    padding: 22px 0 6px;
     text-align: center;
   }
 
@@ -63,7 +64,7 @@
     margin: 0;
     font-family: "Bagel Fat One", sans-serif;
     font-weight: 400;
-    font-size: clamp(56px, 18vw, 84px);
+    font-size: clamp(46px, 13.5vw, 62px);
     line-height: 1.02;
     letter-spacing: .01em;
     color: #ffffff;
@@ -77,12 +78,12 @@
       drop-shadow(0 2px 0 #5d9ad8)
       drop-shadow(0 8px 14px rgba(12,63,102,.35));
   }
-  .wordmark span { display: block; }
+  .wordmark span { display: inline-block; margin: 0 .08em; }
 
   .pill {
     display: inline-block;
-    margin: 0 0 18px;
-    padding: 7px 16px;
+    margin: 0 0 12px;
+    padding: 6px 14px;
     border-radius: 999px;
     background: rgba(255,255,255,.92);
     color: var(--sky-deep);
@@ -92,15 +93,15 @@
   }
 
   .tagline {
-    margin: 22px 0 0;
+    margin: 10px 0 0;
     color: #fff;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
     text-shadow: 0 1px 2px rgba(12,63,102,.6), 0 0 12px rgba(12,63,102,.35);
   }
 
   /* 링크 묶음 */
-  .group { margin-top: 26px; }
+  .group { margin-top: 20px; }
   .group h2 {
     margin: 0 4px 10px;
     color: #fff;
@@ -164,15 +165,70 @@
   .shopping .link { background: #fffaf0; box-shadow: 0 4px 0 #e2c48a; }
   .shopping .link:active { box-shadow: 0 1px 0 #e2c48a; }
 
-  .notice {
-    margin: 12px 4px 0;
-    padding: 12px 14px;
-    border-radius: 14px;
-    background: rgba(255,255,255,.1);
-    color: var(--ice);
-    font-size: 13px;
-    line-height: 1.6;
+  /* 번호 상품 목록 (새 상품이 맨 위) */
+  .products { display: grid; gap: 10px; margin: 0 0 10px; padding: 0; list-style: none; }
+  .product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px 8px 8px;
+    border-radius: 20px;
+    background: #fffaf0;
+    color: var(--ink);
+    text-decoration: none;
+    box-shadow: 0 4px 0 #e2c48a;
+    transition: transform .12s ease, box-shadow .12s ease;
   }
+  .product:active { transform: translateY(3px); box-shadow: 0 1px 0 #e2c48a; }
+  .product:focus-visible { outline: 3px solid var(--sand); outline-offset: 3px; }
+  .thumb {
+    position: relative;
+    flex: none;
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--ice);
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .no {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 30px;
+    padding: 3px 7px 2px;
+    border-radius: 0 0 10px 0;
+    background: var(--sky-deep);
+    color: #fff;
+    font-family: "Bagel Fat One", sans-serif;
+    font-size: 16px;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .thumb.noimg { display: grid; place-items: center; }
+  .thumb.noimg .no { position: static; border-radius: 10px; font-size: 24px; background: none; color: var(--sky-deep); }
+  .pname {
+    font-size: 15.5px;
+    font-weight: 600;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pshop { margin-top: 3px; font-size: 12.5px; color: var(--muted); }
+
+  /* 공정위 대가성 문구: 맨 위에 */
+  .notice {
+    margin: 0 -16px;
+    padding: 10px 16px;
+    background: rgba(12,63,102,.72);
+    color: #fff;
+    font-size: 12.5px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  @media (min-width: 472px) { .notice { margin: 0; border-radius: 0 0 14px 14px; } }
 
   footer {
     margin-top: 34px;
@@ -180,18 +236,102 @@
     color: rgba(214,235,251,.75);
     font-size: 13px;
   }
-  .small-links { display: flex; justify-content: center; gap: 12px; margin-bottom: 14px; }
-  .small-links a {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.14);
-    color: #fff;
+  /* 맨 위 채널 아이콘 한 줄 */
+  .social { display: flex; justify-content: center; gap: 10px; margin-top: 16px; }
+  .social a { display: grid; justify-items: center; gap: 5px; width: 58px; color: #fff; text-decoration: none; }
+  .social .icon { width: 48px; height: 48px; border-radius: 50%; box-shadow: 0 3px 0 rgba(12,63,102,.35), 0 0 0 2.5px rgba(255,255,255,.95); }
+  .social a:active .icon { transform: translateY(2px); }
+  .social a:focus-visible { outline: 3px solid var(--sand); outline-offset: 3px; border-radius: 12px; }
+  .slabel { font-size: 12.5px; font-weight: 600; text-shadow: 0 1px 3px rgba(12,63,102,.85); }
+  .fb { background: #1877f2; }
+
+  /* 영상 한 편 = 묶음 하나 (번호 + 영상 이름 + 상품들) */
+  .videos { display: grid; gap: 12px; margin: 0 0 12px; padding: 0; list-style: none; }
+  .vgroup {
+    padding: 10px;
+    border-radius: 22px;
+    background: #fffaf0;
+    box-shadow: 0 4px 0 #e2c48a;
   }
-  .small-links a:focus-visible { outline: 3px solid var(--sand); outline-offset: 3px; }
-  .small-links svg { width: 22px; height: 22px; }
+  .vhead { display: flex; align-items: center; gap: 10px; margin: 0 2px 8px; }
+  .vno {
+    flex: none;
+    min-width: 44px;
+    padding: 4px 10px 2px;
+    border-radius: 12px;
+    background: var(--sky-deep);
+    color: #fff;
+    font-family: "Bagel Fat One", sans-serif;
+    font-size: 20px;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .vtitle { min-width: 0; font-size: 14px; font-weight: 600; color: var(--muted); line-height: 1.35; }
+  .vtitle b { display: block; color: var(--ink); font-size: 15.5px; }
+  .vitems { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .vitems .product { box-shadow: none; background: #fff; border: 1.5px solid #f1e3c6; padding: 6px 12px 6px 6px; }
+  .vitems .product:active { transform: translateY(2px); box-shadow: none; }
+  .vitems .thumb { width: 60px; height: 60px; border-radius: 12px; }
+  .thumb.noimg svg { width: 28px; height: 28px; color: var(--sky); }
+  .go { margin-left: auto; flex: none; color: #c9a15a; font-size: 20px; font-weight: 600; }
+
+  /* 번호 찾기 칸 */
+  .find { display: flex; gap: 8px; margin: 0 0 12px; }
+  .find input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 16px;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    font-size: 16px;
+    box-shadow: 0 3px 0 #e2c48a;
+  }
+  .find input::placeholder { color: #8aa0b3; }
+  .find input:focus-visible { outline: 3px solid var(--sand); outline-offset: 2px; }
+  .find button {
+    flex: none;
+    height: 48px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 16px;
+    background: rgba(12,63,102,.55);
+    color: #fff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .find button[hidden] { display: none; }
+  .empty {
+    margin: 0 0 12px;
+    padding: 18px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.9);
+    color: var(--ink);
+    font-size: 15px;
+    text-align: center;
+  }
+
+  /* 이전 추천템 더 보기 */
+  .more {
+    display: block;
+    width: 100%;
+    margin: 0 0 12px;
+    padding: 12px;
+    border: 1.5px dashed rgba(255,255,255,.7);
+    border-radius: 16px;
+    background: rgba(12,63,102,.35);
+    color: #fff;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .more:focus-visible { outline: 3px solid var(--sand); outline-offset: 3px; }
   footer p { margin: 0; }
 
   @media (prefers-reduced-motion: reduce) {
@@ -203,45 +343,48 @@
 <div class="scene">
   <div class="wrap">
 
+    <p class="notice">이 페이지에는 쿠팡 파트너스 활동으로 일정액의 수수료를 받을 수 있는 링크가 포함되어 있습니다.</p>
+
     <header>
       <p class="pill">국내여행 · 숙소추천 · 1분 컷</p>
       <h1 class="wordmark"><span>쉘위고</span><span>트립</span></h1>
       <p class="tagline">집이 제일 좋은 사람도 떠나고 싶게</p>
+
+      <!-- 채널 아이콘: 상품이 늘어도 항상 첫 화면에 보이도록 맨 위에 -->
+      <nav class="social" aria-label="채널">
+        <a href="https://www.youtube.com/@shallwego_trip" target="_blank" rel="noopener">
+          <span class="icon yt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></span>
+          <span class="slabel">유튜브</span>
+        </a>
+        <a href="https://www.instagram.com/shallwego_trip" target="_blank" rel="noopener">
+          <span class="icon ig" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></span>
+          <span class="slabel">인스타</span>
+        </a>
+        <a href="https://www.tiktok.com/@shallwego_trip" target="_blank" rel="noopener">
+          <span class="icon tt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 3c.3 2.1 1.6 3.6 3.7 3.8v3.1c-1.4 0-2.7-.4-3.7-1.1v6c0 3.2-2.5 5.6-5.6 5.6S5.4 18 5.4 14.9s2.6-5.6 5.8-5.5v3.2c-1.4-.2-2.6.9-2.6 2.3 0 1.3 1.1 2.4 2.4 2.4 1.4 0 2.4-1.1 2.4-2.6V3h3.2z"/></svg></span>
+          <span class="slabel">틱톡</span>
+        </a>
+        <a href="https://clip.naver.com/@shallwego_trip" target="_blank" rel="noopener">
+          <span class="icon clip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 7.2v9.6l7.6-4.8L9 7.2z"/></svg></span>
+          <span class="slabel">클립</span>
+        </a>
+        <a href="https://www.facebook.com/shallwego.trip" target="_blank" rel="noopener">
+          <span class="icon fb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.4H16l.4-3h-2.9V8.8c0-.9.3-1.5 1.5-1.5h1.5V4.6c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.3H8.1v3h2.5V21h2.9z"/></svg></span>
+          <span class="slabel">페북</span>
+        </a>
+      </nav>
     </header>
 
     <main>
-      <section class="group" aria-labelledby="g-watch">
-        <h2 id="g-watch">여행 영상 보기</h2>
-        <ul class="links">
-          <li>
-            <a class="link" href="https://www.youtube.com/@shallwego_trip" target="_blank" rel="noopener">
-              <span class="icon yt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></span>
-              <span class="text"><span class="name">유튜브</span><span class="sub">@shallwego_trip</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="link" href="https://www.instagram.com/shallwego_trip" target="_blank" rel="noopener">
-              <span class="icon ig" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></span>
-              <span class="text"><span class="name">인스타그램</span><span class="sub">@shallwego_trip</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="link" href="https://www.tiktok.com/@shallwego_trip" target="_blank" rel="noopener">
-              <span class="icon tt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 3c.3 2.1 1.6 3.6 3.7 3.8v3.1c-1.4 0-2.7-.4-3.7-1.1v6c0 3.2-2.5 5.6-5.6 5.6S5.4 18 5.4 14.9s2.6-5.6 5.8-5.5v3.2c-1.4-.2-2.6.9-2.6 2.3 0 1.3 1.1 2.4 2.4 2.4 1.4 0 2.4-1.1 2.4-2.6V3h3.2z"/></svg></span>
-              <span class="text"><span class="name">틱톡</span><span class="sub">@shallwego_trip</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="link" href="https://clip.naver.com/@shallwego_trip" target="_blank" rel="noopener">
-              <span class="icon clip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 7.2v9.6l7.6-4.8L9 7.2z"/></svg></span>
-              <span class="text"><span class="name">네이버 클립</span><span class="sub">@shallwego_trip</span></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
       <section class="group shopping" aria-labelledby="g-shop">
         <h2 id="g-shop">영상 속 추천템</h2>
+        <form class="find" id="find" role="search" hidden>
+          <input id="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off"
+                 placeholder="영상 번호, 장소, 상품 이름 (예: 42, 강릉)" aria-label="영상 번호나 장소, 상품 이름으로 찾기">
+          <button type="button" id="qclear" hidden>전체</button>
+        </form>
+        <p class="empty" id="empty" hidden></p>
+        <ol class="videos" id="products"></ol>
         <ul class="links">
           <li>
             <a class="link" href="https://influencers.coupang.com/s/goldyjin" target="_blank" rel="noopener">
@@ -258,20 +401,149 @@
             </a>
           </li>
         </ul>
-        <p class="notice">이 페이지에는 쿠팡 파트너스 활동으로 일정액의 수수료를 받을 수 있는 링크가 포함되어 있습니다.</p>
       </section>
+
+
     </main>
 
     <footer>
-      <div class="small-links">
-        <a href="https://www.facebook.com/shallwego.trip" target="_blank" rel="noopener" aria-label="페이스북">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.4H16l.4-3h-2.9V8.8c0-.9.3-1.5 1.5-1.5h1.5V4.6c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.3H8.1v3h2.5V21h2.9z"/></svg>
-        </a>
-      </div>
       <p>© 쉘위고 트립</p>
     </footer>
 
   </div>
 </div>
+
+<script>
+  /* ===== 추천템 목록: 영상 한 편 = 한 묶음 =====
+     새 영상은 아래 VIDEOS 맨 위에 추가하세요. 번호(no)가 큰 영상이 페이지 맨 위에 보여요.
+     no:    영상 번호. 영상에서 "추천템은 링크에서 42번"처럼 말하는 번호
+     title: 영상 이름 (장소·숙소 이름을 넣으면 손님이 이름으로도 찾을 수 있어요)
+     items: 그 영상에 나온 상품들
+       name: 상품 이름 / url: 쿠팡 파트너스 상품 링크 / img: img/p/ 폴더 사진 ("" 이면 쇼핑백 그림) / shop: "쿠팡" 또는 "네이버"
+     최근 영상 3편(FIRST)만 먼저 보이고, "이전 영상 더 보기"를 누를 때마다 5편(STEP)씩 늘어나요.
+     주소 끝에 #번호 를 붙이면 그 영상의 추천템이 바로 보여요 (예: https://goldyjstudio.github.io/#42). */
+  const VIDEOS = [
+    // { no: 1, title: "강릉 오션뷰 숙소", items: [
+    //   { name: "상품 이름", url: "https://link.coupang.com/a/...", img: "img/p/1-1.jpg", shop: "쿠팡" },
+    // ] },
+  ];
+
+  /* 예시 화면(주소 끝에 ?demo)에서만 쓰는 가짜 영상 60편 */
+  const DEMO_PLACES = ["강릉 오션뷰 숙소", "제주 애월 감성 펜션", "속초 가성비 호텔", "여수 밤바다 루프탑 숙소", "경주 한옥 스테이",
+    "부산 광안리 오션뷰", "가평 풀빌라", "남해 독채 펜션", "전주 한옥마을 1박 2일", "태안 차박 캠핑"];
+  const DEMO_ITEMS = ["여행용 압축 파우치 6종 세트", "차박 감성 LED 캠핑 랜턴, 충전식", "기내용 20인치 하드 캐리어 (상품 이름이 길면 두 줄까지 보여요)",
+    "방수 휴대폰 파우치 2개입", "접이식 캠핑 의자 초경량", "여행용 멀티 어댑터", "목베개 메모리폼", "휴대용 보조배터리 10000mAh",
+    "세면도구 파우치 걸이형", "썬크림 스틱 SPF50+", "돗자리 방수 대형", "휴대용 선풍기"];
+  const DEMO = [];
+  for (let n = 60, k = 0; n >= 1; n--) {
+    const items = [];
+    for (let j = 0; j < 1 + (n % 3); j++, k++) {
+      items.push({ name: DEMO_ITEMS[k % DEMO_ITEMS.length], url: "#", img: k === 1 ? "img/beach.jpg" : "", shop: k % 7 === 6 ? "네이버" : "쿠팡" });
+    }
+    DEMO.push({ no: n, title: DEMO_PLACES[(60 - n) % DEMO_PLACES.length], items: items });
+  }
+
+  (function () {
+    const demo = new URLSearchParams(location.search).has("demo");
+    const list = (demo ? DEMO : VIDEOS).filter(v => v.items && v.items.length).sort((a, b) => b.no - a.no);
+    const ol = document.getElementById("products");
+    if (!list.length) { ol.remove(); return; }
+
+    const FIRST = 3; /* 처음에 보이는 최근 영상 수 */
+    const STEP = 5;  /* "더 보기"를 누를 때마다 늘어나는 영상 수 */
+    let shown = FIRST;
+    const BAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>';
+
+    function el(tag, cls, text) {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    }
+
+    function itemRow(v, p) {
+      const li = el("li");
+      const a = el("a", "product");
+      a.href = p.url;
+      a.target = "_blank";
+      a.rel = "noopener sponsored";
+      a.setAttribute("aria-label", v.no + "번 영상 추천템, " + p.name + ", " + (p.shop || "쿠팡") + "에서 보기");
+      const thumb = el("span", "thumb" + (p.img ? "" : " noimg"));
+      if (p.img) {
+        const img = el("img");
+        img.src = p.img; img.alt = ""; img.loading = "lazy";
+        thumb.append(img);
+      } else {
+        thumb.innerHTML = BAG;
+      }
+      const text = el("span", "text");
+      text.append(el("span", "pname", p.name), el("span", "pshop", (p.shop || "쿠팡") + "에서 보기"));
+      const go = el("span", "go", "›");
+      go.setAttribute("aria-hidden", "true");
+      a.append(thumb, text, go);
+      li.append(a);
+      return li;
+    }
+
+    function group(v) {
+      const li = el("li", "vgroup");
+      const head = el("div", "vhead");
+      const no = el("span", "vno", v.no);
+      no.setAttribute("aria-label", v.no + "번 영상");
+      const title = el("span", "vtitle");
+      title.append(el("b", null, v.title || ""), document.createTextNode("영상 속 추천템 " + v.items.length + "개"));
+      head.append(no, title);
+      const ul = el("ul", "vitems");
+      v.items.forEach(p => ul.append(itemRow(v, p)));
+      li.append(head, ul);
+      return li;
+    }
+
+    const form = document.getElementById("find");
+    const q = document.getElementById("q");
+    const clear = document.getElementById("qclear");
+    const empty = document.getElementById("empty");
+    const more = el("button", "more");
+    more.type = "button";
+    ol.after(more);
+
+    function render() {
+      const word = q.value.trim();
+      let items;
+      if (word) {
+        if (/^[0-9]+\s*번?$/.test(word)) {
+          const num = Number(word.replace(/[^0-9]/g, ""));
+          items = list.filter(v => v.no === num);
+        } else {
+          const w = word.toLowerCase();
+          items = list.filter(v => (v.title || "").toLowerCase().includes(w) || v.items.some(p => p.name.toLowerCase().includes(w)));
+        }
+      } else {
+        items = list.slice(0, shown);
+      }
+      ol.replaceChildren(...items.map(group));
+      clear.hidden = !word;
+      empty.hidden = !(word && !items.length);
+      if (word && !items.length) empty.textContent = "'" + word + "'에 맞는 추천템이 없어요. 영상 번호를 다시 확인해 주세요.";
+      const rest = list.length - shown;
+      more.hidden = Boolean(word) || rest <= 0;
+      more.textContent = "이전 영상 " + Math.min(STEP, rest) + "편 더 보기 ▾  (남은 " + rest + "편)";
+    }
+
+    more.addEventListener("click", function () { shown += STEP; render(); });
+    q.addEventListener("input", render);
+    form.addEventListener("submit", function (e) { e.preventDefault(); q.blur(); });
+    clear.addEventListener("click", function () { q.value = ""; render(); q.focus(); });
+
+    /* 찾기 칸은 영상이 처음 보이는 수보다 많을 때만 */
+    form.hidden = list.length <= FIRST;
+
+    /* 주소 끝에 #42 를 붙이면 42번 영상이 바로 보여요 (영상 설명란용) */
+    const hash = decodeURIComponent(location.hash.slice(1));
+    if (/^[0-9]+$/.test(hash)) { q.value = hash; form.hidden = false; }
+
+    render();
+  })();
+</script>
 </body>
 </html>
